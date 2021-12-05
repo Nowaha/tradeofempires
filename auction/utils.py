@@ -2,18 +2,20 @@ def isWithin(x, y, w, h, x2, y2):
     return x2 >= x and x2 <= x + w and y2 >= y and y2 <= y + h
 
 class Button(object):
-    def __init__(self, x, y, width, height, color, onClick):
+    def __init__(self, x, y, width, height, backgroundColor, onClick):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        self.color = color
-        self.hoverColor = color * 0.9
+        self.backgroundColor = backgroundColor
+        self.hoverColor = backgroundColor * 0.9
+        self.disabledColor = color(194, 194, 194)
         self.onClick = onClick
         self.visible = True
+        self.enabled = True
     
-    def setColor(self, color):
-        self.color = color
+    def setColor(self, backgroundColor):
+        self.backgroundColor = backgroundColor
         return self
     
     def setHoverColor(self, hoverColor):
@@ -24,19 +26,30 @@ class Button(object):
         self.visible = visible
         return self
     
+    def setDisabledColor(self, disabledColor):
+        self.disabledColor = disabledColor
+        return self
+    
     def render(self):
         if self.visible:
-            if isWithin(self.x, self.y, self.width, self.height, mouseX, mouseY):
+            if self.enabled and isWithin(self.x, self.y, self.width, self.height, mouseX, mouseY):
                 fill(self.hoverColor)
             else:
-                fill(self.color)
+                if self.enabled:
+                    fill(self.backgroundColor)
+                else:
+                    fill(self.disabledColor)
             rect(self.x, self.y, self.width, self.height)
             return True
         return False
         
     def checkClick(self, x, y):
-        if self.visible and isWithin(self.x, self.y, self.width, self.height, x, y):
+        if self.visible and self.enabled and isWithin(self.x, self.y, self.width, self.height, x, y):
             self.onClick(self)
+            
+    def setEnabled(self, enabled):
+        self.enabled = enabled
+        return self
             
 class TextButton(Button, object):
     def __init__(self, *args, **kwargs):
