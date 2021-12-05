@@ -31,6 +31,7 @@ class Button(object):
         return self
     
     def render(self):
+        strokeWeight(0.5)
         if self.visible:
             if self.enabled and isWithin(self.x, self.y, self.width, self.height, mouseX, mouseY):
                 fill(self.hoverColor)
@@ -40,7 +41,9 @@ class Button(object):
                 else:
                     fill(self.disabledColor)
             rect(self.x, self.y, self.width, self.height)
+            strokeWeight(1)
             return True
+        strokeWeight(1)
         return False
         
     def checkClick(self, x, y):
