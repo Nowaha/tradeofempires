@@ -65,7 +65,7 @@ def draw_buttons():
         button.render()
 
 def get_time_left():
-    return time - (frameCount - start) // frameRate
+    return round(time - (frameCount - start) // frameRate)
 
 def draw_timer(timeLeft):
     textAlign(CENTER, CENTER)
@@ -75,7 +75,7 @@ def draw_timer(timeLeft):
     
     fill(0)
     textSize(32)
-    text(((str(int(timeLeft)) + " second" + ('s' if timeLeft != 1 else '')) if timeLeft > 0 else "Last chance!"), WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+    text(((str(timeLeft).split(".")[0] + " second" + ('s' if timeLeft != 1 else '')) if timeLeft > 0 else "Last chance!"), WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
 
 def mousePressed():
     for button in buttons:
