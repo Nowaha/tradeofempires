@@ -101,8 +101,10 @@ def draw():
         if start != 0:
             fill(0)
             textSize(24)
+            textAlign(CENTER, CENTER)
             text(("Player " + str(bidder) + " won with a bid of L." + str(bid)) if bid > 0 else "There were no bids.", WINDOW_WIDTH / 2, (WINDOW_HEIGHT / 2) - 40)
-
+            textAlign(LEFT)
+    
 def onclick_player_1_bid(btn):
     attempt_player_bid(1)
 def onclick_player_2_bid(btn):
